@@ -26,4 +26,9 @@ export const menuItems: MenuItem[] = [
     icon: 'document-text-outline',
     component: 'TextInputScreen',
   },
+  {
+    name: 'Pull To Refesh',
+    icon: 'refresh-outline',
+    component: 'PullToRefeshScreen',
+  },
 ];
