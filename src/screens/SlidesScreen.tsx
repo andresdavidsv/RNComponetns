@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import {
   Animated,
   Dimensions,
@@ -14,6 +14,7 @@ import Carousel, {Pagination} from 'react-native-snap-carousel';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useAnimation} from '../hooks/useAnimation';
 import {StackScreenProps} from '@react-navigation/stack';
+import {ThemeContext} from '../context/themeContext/ThemeContext';
 
 const {width: screenWidth} = Dimensions.get('window');
 
@@ -47,12 +48,15 @@ export const SlidesScreen = ({navigation}: Props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const isVisible = useRef(false);
   const {fadeIn, opacity} = useAnimation();
+  const {
+    theme: {colors},
+  } = useContext(ThemeContext);
   const renderItem = (item: Slide) => {
     return (
       <View
         style={{
           flex: 1,
-          backgroundColor: 'white',
+          backgroundColor: colors.background,
           borderRadius: 5,
           padding: 40,
           justifyContent: 'center',
@@ -61,8 +65,12 @@ export const SlidesScreen = ({navigation}: Props) => {
           source={item.img}
           style={{width: 350, height: 400, resizeMode: 'center'}}
         />
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.subTitle}>{item.desc}</Text>
+        <Text style={{...styles.title, color: colors.primary}}>
+          {item.title}
+        </Text>
+        <Text style={{...styles.subTitle, color: colors.primary}}>
+          {item.desc}
+        </Text>
       </View>
     );
   };
@@ -99,7 +107,7 @@ export const SlidesScreen = ({navigation}: Props) => {
             width: 10,
             height: 10,
             borderRadius: 10,
-            backgroundColor: '#5858D6',
+            backgroundColor: colors.primary,
           }}
         />
         <Animated.View
@@ -114,7 +122,7 @@ export const SlidesScreen = ({navigation}: Props) => {
             }}
             style={{
               flexDirection: 'row',
-              backgroundColor: '#5858D6',
+              backgroundColor: colors.primary,
               height: 50,
               width: 150,
               borderRadius: 10,

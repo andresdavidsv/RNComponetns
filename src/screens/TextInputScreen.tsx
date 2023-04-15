@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   StyleSheet,
   TextInput,
@@ -14,8 +14,12 @@ import {styles} from '../theme/appTheme';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {useForm} from '../hooks/useForm';
 import {CustomSwitch} from '../components/CustomSwitch';
+import {ThemeContext} from '../context/themeContext/ThemeContext';
 
 export const TextInputScreen = () => {
+  const {
+    theme: {colors, dividerColor},
+  } = useContext(ThemeContext);
   const {form, onChange, isSubscribed} = useForm({
     name: '',
     email: '',
@@ -31,19 +35,29 @@ export const TextInputScreen = () => {
           <View style={styles.globalmargin}>
             <HeaderTitle title="Text Input" />
             <TextInput
-              style={stylesScreen.textInput}
+              style={{
+                ...stylesScreen.textInput,
+                borderColor: colors.text,
+                color: colors.text,
+              }}
               placeholder="Input Name"
               autoCorrect={false}
               autoCapitalize="words"
               onChangeText={value => onChange(value, 'name')}
+              placeholderTextColor={dividerColor}
             />
             <TextInput
-              style={stylesScreen.textInput}
+              style={{
+                ...stylesScreen.textInput,
+                borderColor: colors.text,
+                color: colors.text,
+              }}
               placeholder="Input Email"
               autoCorrect={false}
               autoCapitalize="none"
               onChangeText={value => onChange(value, 'email')}
               keyboardType="email-address"
+              placeholderTextColor={dividerColor}
             />
             <View style={stylesScreen.switchRow}>
               <Text style={stylesScreen.switchText}>Subscribe</Text>
@@ -55,10 +69,15 @@ export const TextInputScreen = () => {
             <HeaderTitle title={JSON.stringify(form, null, 3)} />
             <HeaderTitle title={JSON.stringify(form, null, 3)} />
             <TextInput
-              style={stylesScreen.textInput}
+              style={{
+                ...stylesScreen.textInput,
+                borderColor: colors.text,
+                color: colors.text,
+              }}
               placeholder="Input Phone"
               onChangeText={value => onChange(value, 'phone')}
               keyboardType="phone-pad"
+              placeholderTextColor={dividerColor}
             />
           </View>
           <View style={{height: 100}} />
@@ -71,7 +90,6 @@ export const TextInputScreen = () => {
 const stylesScreen = StyleSheet.create({
   textInput: {
     borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.3)',
     height: 50,
     paddingHorizontal: 10,
     borderRadius: 10,
